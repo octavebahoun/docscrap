@@ -1,0 +1,72 @@
+# ========================
+# Dépendances Node
+# ========================
+**/node_modules/
+**/package-lock.json
+**/yarn.lock
+npm-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ========================
+# Environnement
+# ========================
+.env
+.env.local
+.env.*.local
+.env.production.local
+front/.env
+front/.env.local
+front/.env.*.local
+front/.env.production.local
+
+# ========================
+# IDE & Editeurs
+# ========================
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# ========================
+# Build & Dist
+# ========================
+/dist/
+/build/
+front/dist/
+front/build/
+src/dist/
+src/build/
+*.tsbuildinfo
+
+# ========================
+# Données brutes & Logs
+# ========================
+data/raw/
+*.log
+logs/
+*.pid
+*.seed
+
+# ========================
+# Caches
+# ========================
+.cache/
+.eslintcache
+.next/
+out/
+coverage/
+
+# ========================
+# OS
+# ========================
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
