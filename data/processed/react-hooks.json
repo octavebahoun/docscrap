@@ -1,0 +1,56 @@
+{
+  "language": "React",
+  "course": "Hooks",
+  "title": "Référence API React",
+  "sections": [
+    {
+      "title": "React",
+      "content": [
+        {
+          "type": "text",
+          "value": "Les fonctionnalités programmatiques de React :"
+        },
+        {
+          "type": "list",
+          "value": "Hooks - Pour utiliser diverses fonctionnalités de React au sein de vos composants.\nComposants - Détaille les composants fournis par React que vous pouvez utiliser dans votre JSX.\nFonctions - Fonctions de l’API utiles pour définir vos composants.\nDirectives - Fournit des instructions aux bundlers compatibles avec React Server Components."
+        }
+      ]
+    },
+    {
+      "title": "React DOM",
+      "content": [
+        {
+          "type": "text",
+          "value": "React-DOM comprend les fonctionnalités qui ne sont prises en charge que pour les applications web (celles qui tournent dans un environnement DOM navigateur).  Cette section comprend les parties suivantes :"
+        },
+        {
+          "type": "list",
+          "value": "Hooks - Les Hooks dédiés aux applications web s’exécutant dans un environnement DOM navigateur.\nComposants - React prend en charge tous les composants natifs du navigateur pour HTML et SVG.\nFonctions - Le module react-dom fournit les fonctions dédiées aux applications web.\nFonctions côté client - L’API dans react-dom/client vous permet d’effectuer le rendu de composants React côté client (dans le navigateur).\nFonctions côté serveur - L’API dans react-dom/server vous permet d’effectuer le rendu de composants React côté serveur, vers du HTML."
+        }
+      ]
+    },
+    {
+      "title": "Les règles de React",
+      "content": [
+        {
+          "type": "text",
+          "value": "React repose sur des idiomes — ou règles — visant à exprimer vos approches de façon facile à comprendre, et à même de produire des applications de grande qualité :"
+        },
+        {
+          "type": "list",
+          "value": "Les composants et les Hooks doivent être purs – Cette pureté facilite la compréhension de votre code ainsi que son débogage, et permet à React d’optimiser automatiquement et correctement vos composants et Hooks.\nReact appelle les composants et les Hooks – React est responsable du rendu des composants et des Hooks de façon à optimiser l’expérience utilisateur.\nLes règles des Hooks – Les Hooks reposent sur de simples fonctions JavaScript, mais ils représentent un type spécifique de logique UI réutilisable, et ne peuvent être appelés que dans des circonstances bien précises."
+        }
+      ]
+    },
+    {
+      "title": "API React historique",
+      "content": [
+        {
+          "type": "list",
+          "value": "API React historique - Ces fonctions sont présentes dans le module react, mais leur utilisation est découragée pour tout nouveau code."
+        }
+      ]
+    }
+  ],
+  "source": "https://react.dev"
+}

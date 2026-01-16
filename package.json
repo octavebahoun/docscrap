@@ -19,7 +19,10 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fetch": "node src/scraper/fetchPage.js",
+    "extract": "node src/parser/extractContent.js",
+    "markdown": "node src/services/markdown.service.js"
   },
   "dependencies": {
     "axios": "^1.13.2",
