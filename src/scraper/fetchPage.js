@@ -9,7 +9,7 @@ const fs = require('fs')
 const path = require('path')
 
 const fetchPage = async () => {
-  const url = "https://laravel.com/docs/12.x/eloquent";
+  const url = "https://fr.react.dev/reference/react";
 
   try {
     const response = await axios.get(url);
@@ -24,7 +24,7 @@ const fetchPage = async () => {
       process.cwd(),
       "data",
       "raw",
-      "laravel-eloquent.html"
+      "react-hooks.html"
     );
 
     fs.writeFileSync(outputPath, html, "utf-8");

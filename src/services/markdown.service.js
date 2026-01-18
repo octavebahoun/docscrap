@@ -13,7 +13,7 @@ const generateMarkdown = () => {
     process.cwd(),
     "data",
     "processed",
-    "laravel-eloquent.json"
+    "react-hooks.json"
   );
 
   const course = JSON.parse(fs.readFileSync(inputPath, "utf-8"));
@@ -50,7 +50,7 @@ const generateMarkdown = () => {
     process.cwd(),
     "data",
     "processed",
-    "laravel-eloquent.md"
+    "react-hooks.md"
   );
 
   fs.writeFileSync(outputPath, markdown, "utf-8");

@@ -15,7 +15,7 @@ const extractContent = () => {
     process.cwd(),
     "data",
     "raw",
-    "laravel-eloquent.html"
+    "react-hooks.html"
   );
 
   const html = fs.readFileSync(inputPath, "utf-8");
@@ -51,15 +51,13 @@ const extractContent = () => {
           value: element.find("code").text()
         });
       }
-      
+      //pensons a recupéré les elements de listes ul li
       if (element.is("ul")) {
         section.content.push({
           type: "list",
           value: element.text().trim()
         });
       }
-
-
       element = element.next();
     }
 
@@ -70,7 +68,7 @@ const extractContent = () => {
     process.cwd(),
     "data",
     "processed",
-    "laravel-eloquent.json"
+    "react-hooks.json"
   );
 
   fs.writeFileSync(outputPath, JSON.stringify(course, null, 2), "utf-8");
