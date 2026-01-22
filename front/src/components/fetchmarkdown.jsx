@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileText, Loader2, AlertCircle, Edit3, Eye } from "lucide-react";
+import { useReactToPrint } from "react-to-print";
 
 const MarkdownLoader = () => {
   const [markdown, setMarkdown] = useState("");
@@ -15,7 +16,7 @@ const MarkdownLoader = () => {
   });
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5173/public/react-hooks.md")
+    fetch("http://127.0.0.1:3000/api/courses/markdown")
       .then((response) => {
         if (!response.ok) throw new Error("Fichier non trouvé");
         return response.text();
@@ -139,7 +140,10 @@ const MarkdownLoader = () => {
               Aperçu
             </div>
             <div className="flex-1 p-8 overflow-y-auto">
-              <article ref={componentRef} className=" prose prose-slate prose-lg max-w-none">
+              <article
+                ref={componentRef}
+                className=" prose prose-slate prose-lg max-w-none"
+              >
                 <ReactMarkdown>{markdown}</ReactMarkdown>
               </article>
             </div>

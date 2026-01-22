@@ -19,17 +19,20 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node src/scraper/fetchPage.js && node src/parser/extractContent.js",
     "fetch": "node src/scraper/fetchPage.js",
     "extract": "node src/parser/extractContent.js",
-    "markdown": "node src/services/markdown.service.js"
+    "markdown": "node src/services/markdown.service.mjs"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^3.0.12",
+    "ai": "^6.0.44",
     "axios": "^1.13.2",
     "cheerio": "^1.1.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.11",
+    "openai": "^6.16.0"
   }
 }

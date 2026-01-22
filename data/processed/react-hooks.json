@@ -1,55 +1,67 @@
 {
   "language": "React",
   "course": "Hooks",
-  "title": "Référence API React",
+  "title": "Your First Component",
   "sections": [
     {
-      "title": "React",
+      "title": "Components: UI building blocks",
       "content": [
         {
           "type": "text",
-          "value": "Les fonctionnalités programmatiques de React :"
+          "value": "On the Web, HTML lets us create rich structured documents with its built-in set of tags like <h1> and <li>:"
         },
         {
-          "type": "list",
-          "value": "Hooks - Pour utiliser diverses fonctionnalités de React au sein de vos composants.\nComposants - Détaille les composants fournis par React que vous pouvez utiliser dans votre JSX.\nFonctions - Fonctions de l’API utiles pour définir vos composants.\nDirectives - Fournit des instructions aux bundlers compatibles avec React Server Components."
+          "type": "text",
+          "value": "This markup represents this article <article>, its heading <h1>, and an (abbreviated) table of contents as an ordered list <ol>. Markup like this, combined with CSS for style, and JavaScript for interactivity, lies behind every sidebar, avatar, modal, dropdown—every piece of UI you see on the Web."
+        },
+        {
+          "type": "text",
+          "value": "React lets you combine your markup, CSS, and JavaScript into custom “components”, reusable UI elements for your app. The table of contents code you saw above could be turned into a <TableOfContents /> component you could render on every page. Under the hood, it still uses the same HTML tags like <article>, <h1>, etc."
+        },
+        {
+          "type": "text",
+          "value": "Just like with HTML tags, you can compose, order and nest components to design whole pages. For example, the documentation page you’re reading is made out of React components:"
+        },
+        {
+          "type": "text",
+          "value": "As your project grows, you will notice that many of your designs can be composed by reusing components you already wrote, speeding up your development. Our table of contents above could be added to any screen with <TableOfContents />! You can even jumpstart your project with the thousands of components shared by the React open source community like Chakra UI and Material UI."
         }
       ]
     },
     {
-      "title": "React DOM",
+      "title": "Defining a component",
       "content": [
         {
           "type": "text",
-          "value": "React-DOM comprend les fonctionnalités qui ne sont prises en charge que pour les applications web (celles qui tournent dans un environnement DOM navigateur).  Cette section comprend les parties suivantes :"
-        },
-        {
-          "type": "list",
-          "value": "Hooks - Les Hooks dédiés aux applications web s’exécutant dans un environnement DOM navigateur.\nComposants - React prend en charge tous les composants natifs du navigateur pour HTML et SVG.\nFonctions - Le module react-dom fournit les fonctions dédiées aux applications web.\nFonctions côté client - L’API dans react-dom/client vous permet d’effectuer le rendu de composants React côté client (dans le navigateur).\nFonctions côté serveur - L’API dans react-dom/server vous permet d’effectuer le rendu de composants React côté serveur, vers du HTML."
+          "value": "Traditionally when creating web pages, web developers marked up their content and then added interaction by sprinkling on some JavaScript. This worked great when interaction was a nice-to-have on the web. Now it is expected for many sites and all apps. React puts interactivity first while still using the same technology: a React component is a JavaScript function that you can sprinkle with markup. Here’s what that looks like (you can edit the example below):"
         }
       ]
     },
     {
-      "title": "Les règles de React",
+      "title": "Using a component",
       "content": [
         {
           "type": "text",
-          "value": "React repose sur des idiomes — ou règles — visant à exprimer vos approches de façon facile à comprendre, et à même de produire des applications de grande qualité :"
-        },
-        {
-          "type": "list",
-          "value": "Les composants et les Hooks doivent être purs – Cette pureté facilite la compréhension de votre code ainsi que son débogage, et permet à React d’optimiser automatiquement et correctement vos composants et Hooks.\nReact appelle les composants et les Hooks – React est responsable du rendu des composants et des Hooks de façon à optimiser l’expérience utilisateur.\nLes règles des Hooks – Les Hooks reposent sur de simples fonctions JavaScript, mais ils représentent un type spécifique de logique UI réutilisable, et ne peuvent être appelés que dans des circonstances bien précises."
+          "value": "Now that you’ve defined your Profile component, you can nest it inside other components. For example, you can export a Gallery component that uses multiple Profile components:"
         }
       ]
     },
     {
-      "title": "API React historique",
+      "title": "Recap",
       "content": [
         {
+          "type": "text",
+          "value": "You’ve just gotten your first taste of React! Let’s recap some key points."
+        },
+        {
           "type": "list",
-          "value": "API React historique - Ces fonctions sont présentes dans le module react, mais leur utilisation est découragée pour tout nouveau code."
+          "value": "React lets you create components, reusable UI elements for your app.\n\n\nIn a React app, every piece of UI is a component.\n\n\nReact components are regular JavaScript functions except:\n\nTheir names always begin with a capital letter.\nThey return JSX markup."
         }
       ]
+    },
+    {
+      "title": "Try out some challenges",
+      "content": []
     }
   ],
   "source": "https://react.dev"

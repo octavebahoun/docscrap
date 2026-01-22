@@ -9,7 +9,7 @@ const fs = require('fs')
 const path = require('path')
 
 const fetchPage = async () => {
-  const url = "https://fr.react.dev/reference/react";
+  const url = "https://react.dev/learn/your-first-component";
 
   try {
     const response = await axios.get(url);
@@ -29,9 +29,9 @@ const fetchPage = async () => {
 
     fs.writeFileSync(outputPath, html, "utf-8");
 
-    console.log("HTML brut sauvegardé avec succès ✅");
+    console.log("HTML brut sauvegardé avec succès ");
   } catch (error) {
-    console.error("Erreur scraping ❌", error.message);
+    console.error("Erreur scraping ", error.message);
   }
 };
 

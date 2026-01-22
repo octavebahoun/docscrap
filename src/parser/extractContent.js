@@ -51,7 +51,7 @@ const extractContent = () => {
           value: element.find("code").text()
         });
       }
-      //pensons a recupéré les elements de listes ul li
+      //recupéré les elements de listes ul li
       if (element.is("ul")) {
         section.content.push({
           type: "list",

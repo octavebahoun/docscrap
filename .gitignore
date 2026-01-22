@@ -70,3 +70,9 @@ coverage/
 .AppleDouble
 .LSOverride
 Thumbs.db
+
+
+# ========================
+#keys
+groq.txt
+deepseek.txt
