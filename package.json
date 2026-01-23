@@ -19,10 +19,11 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "test": "node src/scraper/fetchPage.js && node src/parser/extractContent.js",
-    "fetch": "node src/scraper/fetchPage.js",
-    "extract": "node src/parser/extractContent.js",
-    "markdown": "node src/services/markdown.service.mjs"
+    "test": "nodemon src/scraper/fetchPage.js ",
+    "fetch": "nodemon src/scraper/fetchPage.js",
+    "extract": "nodemon src/parser/extractContent.js",
+    "start": "node src/server.js",
+    "markdown": "nodemon src/services/markdown.service.mjs"
   },
   "dependencies": {
     "@ai-sdk/groq": "^3.0.12",

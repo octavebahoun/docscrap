@@ -4,8 +4,9 @@
 
 const express = require('express');
 const cors = require('cors');
-const coursesRoutes = require('./routes/courses.routes');
+const coursesRoutes = require('./src/routes/courses.routes');
 const app = express();
+
 
 // ============================================================================
 // MIDDLEWARE
@@ -32,7 +33,7 @@ app.use((req, res, next) => {
 // ROUTES
 // ============================================================================
 
-app.use('/api/courses', coursesRoutes);
+app.use('/api/courses', coursesRoutes.router);
 
 // Route racine - Health check
 app.get('/', (req, res) => {
@@ -42,7 +43,7 @@ app.get('/', (req, res) => {
     status: 'running',
     endpoints: {
       markdown: '/api/courses/markdown',
-      convert: '/api/courses/convert (POST)'
+      convert: '/api/courses/convert'
     }
   });
 });

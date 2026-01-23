@@ -6,6 +6,17 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const fetchPage = require('../scraper/fetchPage');
+
+// Import dynamique du service ESM
+let markdownService;
+const getMarkdownService = async () => {
+    if (!markdownService) {
+        // En CJS, on utilise import() dynamique pour charger un module ESM
+        markdownService = await import('../services/markdown.service.mjs');
+    }
+    return markdownService;
+};
 
 /**
  * GET /api/courses/markdown
@@ -13,64 +24,63 @@ const path = require('path');
  */
 router.get('/markdown', async (req, res) => {
     try {
-        // Chemin vers le fichier Markdown généré
-        const markdownPath = path.join(process.cwd(),'services', 'page.md');
+        const { CONFIG } = await getMarkdownService();
+        const markdownPath = path.join(process.cwd(), CONFIG.OUTPUT_FILE);
 
-        // Vérifier si le fichier existe
+        console.log(`🔍 Lecture du Markdown à : ${markdownPath}`);
+
         if (!fs.existsSync(markdownPath)) {
-            return res.status(404).json({
-                error: 'Fichier Markdown non trouvé',
-                message: 'Le fichier page.md n\'existe pas. Veuillez d\'abord exécuter la conversion HTML → Markdown.'
-            });
+            console.log('⚠️ Fichier non trouvé, renvoi du message d\'accueil');
+            res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
+            return res.send("# Bienvenue sur DocScrap\n\nEntrez une URL pour commencer la génération de votre cours.");
         }
 
-        // Lire le contenu du fichier
         const markdownContent = fs.readFileSync(markdownPath, 'utf-8');
-
-        // Retourner le contenu avec le bon Content-Type
         res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
         res.send(markdownContent);
 
     } catch (error) {
-        console.error('❌ Erreur lors de la lecture du fichier Markdown:', error);
-        res.status(500).json({
-            error: 'Erreur serveur',
-            message: 'Une erreur est survenue lors de la récupération du Markdown.',
-            details: error.message
-        });
+        console.error('❌ Erreur:', error);
+        res.status(500).json({ error: 'Erreur serveur', message: error.message });
     }
 });
 
 /**
- * POST /api/courses/convert
- * Convertit du HTML en Markdown (future fonctionnalité)
+ * POST /api/courses/url
+ * Reçoit une URL, extrait le HTML et le convertit en Markdown
  */
-router.post('/convert', async (req, res) => {
+router.post('/url', async (req, res) => {
     try {
-        const { htmlContent } = req.body;
+        const { url } = req.body;
 
-        // Validation
-        if (!htmlContent) {
-            return res.status(400).json({
-                error: 'Paramètre manquant',
-                message: 'Le paramètre htmlContent est requis.'
-            });
+        if (!url) {
+            return res.status(400).json({ error: 'URL requise' });
         }
 
-        res.status(501).json({
-            error: 'Non implémenté',
-            message: 'Cette fonctionnalité sera bientôt disponible.'
+        console.log(`🔗 Traitement de l'URL : ${url}`);
+
+        // 1. Récupérer le HTML
+        const html = await fetchPage(url);
+
+        // 2. Charger le service de conversion
+        const { htmlToMarkdown } = await getMarkdownService();
+
+        // 3. Convertir en Markdown
+        // On attend la fin du processus pour informer le client
+        const markdown = await htmlToMarkdown(html);
+
+        res.status(200).json({
+            message: 'Conversion réussie',
+            url: url
         });
 
     } catch (error) {
-        console.error('❌ Erreur lors de la conversion:', error);
+        console.error('❌ Erreur:', error);
         res.status(500).json({
-            error: 'Erreur serveur',
-            message: 'Une erreur est survenue lors de la conversion.',
-            details: error.message
+            error: 'Erreur de conversion',
+            message: error.message
         });
     }
 });
 
-// Export du router
-module.exports = router;
+module.exports = { router };

@@ -8,7 +8,7 @@
 //   const [markdown, setMarkdown] =
 //     useState(`# Bienvenue dans votre Éditeur Premium
 
-// Ceci est un exemple de **typographie raffinée**. 
+// Ceci est un exemple de **typographie raffinée**.
 
 // ## Pourquoi cette interface ?
 // 1. **Lisibilité maximale** : Utilisation de la police *Outfit* pour le corps du texte.
@@ -82,7 +82,7 @@
 //           <button className="p-2 text-slate-400 hover:text-slate-600 transition-colors">
 //             <Share2 size={20} />
 //           </button>
-//           <button 
+//           <button
 //             className="flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-800 transition-all shadow-md active:scale-95"
 //             onClick={handlePrint}
 //             >
@@ -139,8 +139,8 @@
 //                   </div>
 //                   <div className="flex-1 p-8 overflow-y-auto bg-white custom-scrollbar">
 //                     <article
-//                        ref={componentRef} 
-//                       className="prose prose-slate prose-lg max-w-none 
+//                        ref={componentRef}
+//                       className="prose prose-slate prose-lg max-w-none
 //                       prose-headings:font-bold prose-headings:tracking-tight
 //                       prose-p:leading-relaxed prose-p:text-slate-600
 //                       prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline
@@ -179,12 +179,8 @@
 
 // export default MarkdownEditor;
 
-
 import MarkdownLoader from "./fetchmarkdown";
 
 export default function Markdown() {
-    return (
-        <MarkdownLoader />
-    );
+  return <MarkdownLoader />;
 }
-

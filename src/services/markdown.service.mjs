@@ -33,14 +33,14 @@ import * as cheerio from 'cheerio';
  */
 const CONFIG = {
   // Limite de caractères pour l'input HTML (contrainte de l'API IA)
-  MAX_HTML_LENGTH: 4000,
+  MAX_HTML_LENGTH: 12000,
 
   // Modèle IA à utiliser
   AI_MODEL: 'meta-llama/llama-4-scout-17b-16e-instruct',
 
   // Fichiers d'entrée/sortie par défaut
-  INPUT_FILE: 'page.html',
-  OUTPUT_FILE: 'page.md',
+  INPUT_FILE: 'data/raw/last-fetched.html',
+  OUTPUT_FILE: 'data/output/course.md',
 
   // Sélecteurs CSS pour nettoyer le HTML (éléments à supprimer)
   NOISE_SELECTORS: [
@@ -270,6 +270,10 @@ async function htmlToMarkdown(htmlContent) {
 
     // Étape 4 : Sauvegarder le résultat
     const outputPath = path.join(process.cwd(), CONFIG.OUTPUT_FILE);
+    const outputDir = path.dirname(outputPath);
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
     fs.writeFileSync(outputPath, text, 'utf-8');
 
     console.log(`✅ Conversion terminée ! Fichier sauvegardé : ${outputPath}`);
@@ -282,60 +286,7 @@ async function htmlToMarkdown(htmlContent) {
   }
 }
 
-// ============================================================================
-// POINT D'ENTRÉE (EXÉCUTION)
-// ============================================================================
-
-/**
- * Fonction principale d'exécution du script
- * Utilise le "top-level await" (disponible dans les modules ES)
- */
-(async () => {
-  try {
-    console.log('🚀 Démarrage du service de conversion HTML → Markdown\n');
-
-    // Étape 1 : Vérifier l'existence du fichier HTML source
-    const htmlPath = path.join(process.cwd(), CONFIG.INPUT_FILE);
-
-    if (!fs.existsSync(htmlPath)) {
-      throw new Error(`Le fichier source n'existe pas : ${htmlPath}`);
-    }
-
-    console.log(`📖 Lecture du fichier : ${htmlPath}`);
-
-    // Étape 2 : Lire le contenu HTML
-    const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
-    console.log(`✓ Fichier lu avec succès (${htmlContent.length} caractères)\n`);
-
-    // Étape 3 : Convertir en Markdown
-    const markdown = await htmlToMarkdown(htmlContent);
-
-    // Étape 4 : Afficher un aperçu du résultat
-    console.log('\n📝 Aperçu du Markdown généré:');
-    console.log('─'.repeat(60));
-    console.log(markdown.slice(0, 300) + '...');
-    console.log('─'.repeat(60));
-
-    console.log('\n🎉 Processus terminé avec succès !');
-
-  } catch (error) {
-    // Gestion centralisée des erreurs
-    console.error('\n❌ Une erreur est survenue:');
-    console.error('─'.repeat(60));
-
-    // Afficher les détails de l'erreur API si disponibles
-    if (error.responseBody) {
-      console.error('Réponse de l\'API:', error.responseBody);
-    } else {
-      console.error(error.message || error);
-    }
-
-    console.error('─'.repeat(60));
-
-    // Quitter avec un code d'erreur
-    process.exit(1);
-  }
-})();
+export { htmlToMarkdown, CONFIG };
 
 
 

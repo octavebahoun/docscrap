@@ -8,9 +8,7 @@ const axios = require('axios')
 const fs = require('fs')
 const path = require('path')
 
-const fetchPage = async () => {
-  const url = "https://react.dev/learn/your-first-component";
-
+const fetchPage = async (url) => {
   try {
     const response = await axios.get(url);
 
@@ -20,19 +18,29 @@ const fetchPage = async () => {
 
     const html = response.data;
 
+    // Optionnel: sauvegarder une copie locale pour le cache/debug
     const outputPath = path.join(
       process.cwd(),
       "data",
       "raw",
-      "react-hooks.html"
+      "last-fetched.html"
     );
+
+    // S'assurer que le dossier existe
+    const dir = path.dirname(outputPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
 
     fs.writeFileSync(outputPath, html, "utf-8");
 
-    console.log("HTML brut sauvegardé avec succès ");
+    console.log("HTML brut récupéré avec succès");
+    return html;
   } catch (error) {
     console.error("Erreur scraping ", error.message);
+    throw error;
   }
 };
 
-fetchPage();
+
+module.exports = fetchPage;
