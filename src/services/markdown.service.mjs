@@ -38,8 +38,9 @@ const CONFIG = {
   // Modèle IA à utiliser
   AI_MODEL: 'meta-llama/llama-4-scout-17b-16e-instruct',
 
-  // Fichiers d'entrée/sortie par défaut
-  INPUT_FILE: 'data/raw/last-fetched.html',
+  // Fichiers d'entrée/sortie dynamiques
+  name: 'fichier${Date.now()}.html',
+  INPUT_FILE: 'data/raw/{name}',
   OUTPUT_FILE: 'data/output/course.md',
 
   // Sélecteurs CSS pour nettoyer le HTML (éléments à supprimer)
@@ -244,7 +245,7 @@ Commence maintenant la conversion en Markdown.`;
  * @example
  * const markdown = await htmlToMarkdown('<h1>Titre</h1><p>Contenu</p>');
  */
-async function htmlToMarkdown(htmlContent) {
+async function htmlToMarkdown(htmlContent, courseTitle = 'unamed') {
   console.log('🧹 Nettoyage du HTML...');
 
   // Étape 1 : Nettoyer le HTML (supprimer les éléments parasites)
@@ -269,14 +270,18 @@ async function htmlToMarkdown(htmlContent) {
     });
 
     // Étape 4 : Sauvegarder le résultat
-    const outputPath = path.join(process.cwd(), CONFIG.OUTPUT_FILE);
-    const outputDir = path.dirname(outputPath);
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
+    const courseDir = path.join(process.cwd(), 'data/output', courseTitle);
+    // 
+    if (!fs.existsSync(courseDir)) {
+      fs.mkdirSync(courseDir, { recursive: true });
     }
+
+    const files = fs.readdirSync(courseDir).filter(f => f.match(/^v\d+\.md$/));
+    const nextVersion = files.length + 1;
+    const outputPath = path.join(courseDir, `c${nextVersion}.md`);
     fs.writeFileSync(outputPath, text, 'utf-8');
 
-    console.log(`✅ Conversion terminée ! Fichier sauvegardé : ${outputPath}`);
+    console.log(`✅ Fichier v${nextVersion} Conversion terminée ! Fichier sauvegardé : ${outputPath}`);
     return text;
 
   } catch (apiError) {
