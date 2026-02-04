@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocScrap - Premium Redesign Wireframe</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .wireframe-header {
+      background: white;
+      padding: 20px;
+      margin-bottom: 30px;
+      border: 2px solid #333;
+      border-radius: 4px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #000;
+    }
+    
+    .description {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    .page-section {
+      background: white;
+      border: 3px solid #333;
+      padding: 20px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .page-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #999;
+    }
+    
+    .component {
+      border: 2px dashed #999;
+      padding: 15px;
+      margin: 10px 0;
+      background: #fafafa;
+      position: relative;
+    }
+    
+    .badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      z-index: 10;
+      color: white;
+    }
+    
+    .badge-reuse {
+      background: #4CAF50;
+    }
+    
+    .badge-new {
+      background: #FF9800;
+    }
+    
+    .grid {
+      display: grid;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    
+    .grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .flex {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0;
+    }
+    
+    .flex-between {
+      justify-content: space-between;
+    }
+    
+    .box {
+      background: #e0e0e0;
+      padding: 10px;
+      border: 1px solid #999;
+      text-align: center;
+      color: #666;
+    }
+    
+    .input-field {
+      background: white;
+      border: 2px solid #999;
+      padding: 10px;
+      width: 100%;
+      font-family: 'Comic Sans MS', cursive;
+    }
+    
+    .button {
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      border: 2px solid #000;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: bold;
+    }
+    
+    .card {
+      border: 2px solid #999;
+      padding: 15px;
+      background: white;
+    }
+    
+    .sidebar {
+      width: 60px;
+      border-right: 2px solid #999;
+      padding: 10px;
+      background: #f9f9f9;
+    }
+    
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      background: #ccc;
+      border: 1px solid #999;
+      margin: 10px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+    
+    .floating-panel {
+      border: 3px solid #666;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 15px;
+      margin: 15px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-widget {
+      border: 2px solid #999;
+      padding: 15px;
+      text-align: center;
+      background: #fafafa;
+    }
+    
+    .note {
+      background: #fffacd;
+      border-left: 4px solid #ff9800;
+      padding: 10px;
+      margin: 15px 0;
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="wireframe-header">
+    <h1>DocScrap - Premium Web App Redesign</h1>
+    <p class="description">
+      This wireframe showcases a modern, premium redesign following 2026 web app design principles: 
+      collapsible icon sidebar, glassmorphic floating panels, high information density with bento grid layouts,
+      improved micro-interactions, and consistent use of shadcn components for a polished experience.
+    </p>
+  </div>
+
+  <!-- LANDING PAGE -->
+  <div class="page-section">
+    <div class="page-title">1. LANDING PAGE (/) - Hero-First Premium Layout</div>
+    
+    <!-- REUSABLE: Navigation Header -->
+    <div style="position: relative;">
+      <span class="badge badge-reuse" title="Reuse from LandingPage.jsx with improvements">REUSE Header</span>
+      <div class="component">
+        <div class="flex flex-between">
+          <div class="flex">
+            <div class="icon-box">Logo</div>
+            <strong>DocScrap</strong>
+          </div>
+          <div class="flex">
+            <span style="color: #666;">Features</span>
+            <span style="color: #666;">Pricing</span>
+            <span style="color: #666;">Docs</span>
+            <!-- REUSABLE: Button component -->
+            <span style="position: relative; display: inline-block;">
+              <span class="badge badge-reuse" style="font-size: 8px; padding: 2px 4px;" title="src/components/ui/button.jsx">REUSE Button</span>
+              <span class="button">Dashboard</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section with Glassmorphic Card -->
+    <div style="position: relative; margin-top: 20px;">
+      <span class="badge badge-new" title="New glassmorphic hero component">NEW GlassHero</span>
+      <div class="floating-panel" style="text-align: center; min-height: 300px; display: flex; flex-direction: column; justify-content: center;">
+        <h2 style="font-size: 42px; margin-bottom: 15px;">Transform Docs into<br/>Knowledge Instantly</h2>
+        <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+          Convert complex technical documentation into structured,<br/>
+          interactive courses powered by AI
+        </p>
+        <div class="flex" style="justify-content: center; gap: 15px;">
+          <!-- REUSABLE: Button -->
+          <span style="position: relative;">
+            <span class="badge badge-reuse" style="font-size: 8px; padding: 2px 4px;">REUSE Button</span>
+            <span class="button" style="padding: 12px 24px;">Create Course →</span>
+          </span>
+          <span style="position: relative;">
+            <span class="badge badge-reuse" style="font-size: 8px; padding: 2px 4px;">REUSE Button</span>
+            <span class="button" style="background: white; color: #333;">View Examples</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bento Grid Features -->
+    <div style="position: relative; margin-top: 20px;">
+      <span class="badge badge-new" title="New bento grid feature cards">NEW BentoFeatures</span>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="icon-box" style="margin: 0 0 10px 0;">⚡</div>
+          <strong>Ultra Fast</strong>
+          <p style="font-size: 12px; color: #666;">Intelligent scraping and instant conversion</p>
+        </div>
+        <div class="card">
+          <div class="icon-box" style="margin: 0 0 10px 0;">📚</div>
+          <strong>Course Format</strong>
+          <p style="font-size: 12px; color: #666;">Clean markdown with TOC and summaries</p>
+        </div>
+        <div class="card">
+          <div class="icon-box" style="margin: 0 0 10px 0;">📥</div>
+          <strong>Easy Export</strong>
+          <p style="font-size: 12px; color: #666;">PDF, Markdown, or direct sharing</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>UX Improvements:</strong> Added navigation menu, improved CTA hierarchy, bento grid for better visual organization, glassmorphic hero for premium feel
+    </div>
+  </div>
+
+  <!-- DASHBOARD PAGE -->
+  <div class="page-section">
+    <div class="page-title">2. DASHBOARD (/dashboard) - Collapsible Sidebar + Bento Stats</div>
+    
+    <div style="display: flex; min-height: 400px;">
+      <!-- Icon Sidebar -->
+      <div style="position: relative;">
+        <span class="badge badge-new" title="New collapsible icon sidebar">NEW IconSidebar</span>
+        <div class="sidebar">
+          <div class="icon-box" style="background: #333; color: white;">DS</div>
+          <div class="icon-box" title="Dashboard">📊</div>
+          <div class="icon-box" title="Courses">📚</div>
+          <div class="icon-box" title="Create">➕</div>
+          <div class="icon-box" title="Settings">⚙️</div>
+          <div class="icon-box" style="margin-top: auto;" title="Profile">👤</div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div style="flex: 1; padding: 20px;">
+        <!-- Header with Stats -->
+        <div style="position: relative;">
+          <span class="badge badge-new" title="New stats bar component">NEW StatsBar</span>
+          <div class="component">
+            <div class="flex flex-between" style="margin-bottom: 15px;">
+              <div>
+                <h2 style="font-size: 24px;">My Courses</h2>
+                <p style="color: #666; font-size: 13px;">Manage your documentation library</p>
+              </div>
+              <!-- REUSABLE: Button -->
+              <span style="position: relative;">
+                <span class="badge badge-reuse" style="font-size: 8px; padding: 2px 4px;">REUSE Button</span>
+                <span class="button">+ New Course</span>
+              </span>
+            </div>
+
+            <!-- Bento Stats Grid -->
+            <div class="grid grid-3" style="margin-top: 15px;">
+              <div class="stat-widget">
+                <div style="font-size: 24px; font-weight: bold;">12</div>
+                <div style="font-size: 11px; color: #666; text-transform: uppercase;">Total Courses</div>
+              </div>
+              <div class="stat-widget">
+                <div style="font-size: 24px; font-weight: bold;">3</div>
+                <div style="font-size: 11px; color: #666; text-transform: uppercase;">This Week</div>
+              </div>
+              <div class="stat-widget">
+                <div style="font-size: 24px; font-weight: bold;">24h</div>
+                <div style="font-size: 11px; color: #666; text-transform: uppercase;">Avg. Time Saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course Cards Grid -->
+        <div style="position: relative; margin-top: 20px;">
+          <span class="badge badge-new" title="Enhanced course card with hover states">NEW CourseCard</span>
+          <div class="grid grid-3">
+            <div class="card">
+              <div class="flex flex-between" style="margin-bottom: 10px;">
+                <div class="icon-box" style="width: 36px; height: 36px; margin: 0;">JSON</div>
+                <span style="font-size: 10px; color: #666;">JSON</span>
+              </div>
+              <strong style="display: block; margin-bottom: 5px;">React Hooks</strong>
+              <p style="font-size: 11px; color: #666; margin-bottom: 10px;">Complete guide to React hooks...</p>
+              <div style="border-top: 1px solid #e0e0e0; padding-top: 8px; font-size: 10px; color: #999;">
+                📅 2 days ago
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex flex-between" style="margin-bottom: 10px;">
+                <div class="icon-box" style="width: 36px; height: 36px; margin: 0;">MD</div>
+                <span style="font-size: 10px; color: #666;">MD</span>
+              </div>
+              <strong style="display: block; margin-bottom: 5px;">Laravel Eloquent</strong>
+              <p style="font-size: 11px; color: #666; margin-bottom: 10px;">Database ORM patterns...</p>
+              <div style="border-top: 1px solid #e0e0e0; padding-top: 8px; font-size: 10px; color: #999;">
+                📅 1 week ago
+              </div>
+            </div>
+            <div class="card" style="border: 2px dashed #ccc; background: #fafafa; display: flex; align-items: center; justify-content: center; min-height: 140px;">
+              <div style="text-align: center; color: #999;">
+                <div style="font-size: 32px; margin-bottom: 5px;">+</div>
+                <div style="font-size: 12px;">Create New</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>UX Improvements:</strong> Icon-only collapsible sidebar, bento stats for quick insights, improved card design with better visual hierarchy, empty state for new course creation
+    </div>
+  </div>
+
+  <!-- COURSE GENERATOR PAGE -->
+  <div class="page-section">
+    <div class="page-title">3. COURSE GENERATOR (/create) - Wizard-Style Flow</div>
+    
+    <div style="position: relative;">
+      <span class="badge badge-new" title="Multi-step wizard component">NEW WizardFlow</span>
+      <div class="component" style="max-width: 600px; margin: 0 auto;">
+        <!-- Progress Steps -->
+        <div class="flex" style="justify-content: space-between; margin-bottom: 30px;">
+          <div style="text-align: center; flex: 1;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: #333; color: white; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+            <div style="font-size: 11px; font-weight: bold;">URL Input</div>
+          </div>
+          <div style="border-top: 2px dashed #ccc; flex: 1; margin-top: 16px;"></div>
+          <div style="text-align: center; flex: 1;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ccc; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; color: #999;">2</div>
+            <div style="font-size: 11px; color: #999;">Configure</div>
+          </div>
+          <div style="border-top: 2px dashed #ccc; flex: 1; margin-top: 16px;"></div>
+          <div style="text-align: center; flex: 1;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ccc; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; color: #999;">3</div>
+            <div style="font-size: 11px; color: #999;">Generate</div>
+          </div>
+        </div>
+
+        <!-- Form Content -->
+        <div class="floating-panel">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <div class="icon-box" style="width: 48px; height: 48px; margin: 0 auto 10px; background: #f0f0f0;">✨</div>
+            <h3 style="font-size: 20px; margin-bottom: 5px;">Enter Documentation URL</h3>
+            <p style="font-size: 12px; color: #666;">We'll scrape and convert it into a structured course</p>
+          </div>
+
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 5px;">Documentation URL</label>
+            <input type="text" class="input-field" placeholder="https://react.dev/learn/..." />
+          </div>
+
+          <!-- NEW: Additional options -->
+          <div style="position: relative; margin-bottom: 15px;">
+            <span class="badge badge-new" style="font-size: 8px; padding: 2px 4px;">NEW Options</span>
+            <div style="border: 1px dashed #ccc; padding: 10px; background: #fafafa;">
+              <label style="display: block; font-size: 11px; margin-bottom: 5px;">
+                <input type="checkbox" /> Include code examples
+              </label>
+              <label style="display: block; font-size: 11px; margin-bottom: 5px;">
+                <input type="checkbox" checked /> Auto-generate summary
+              </label>
+              <label style="display: block; font-size: 11px;">
+                <input type="checkbox" checked /> Create table of contents
+              </label>
+            </div>
+          </div>
+
+          <!-- REUSABLE: Button -->
+          <span style="position: relative; display: block;">
+            <span class="badge badge-reuse" style="font-size: 8px; padding: 2px 4px;">REUSE Button</span>
+            <button class="button" style="width: 100%; padding: 12px;">Continue →</button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>UX Improvements:</strong> Multi-step wizard for better guidance, progress indicator, additional configuration options, centered layout for focus
+    </div>
+  </div>
+
+  <!-- MARKDOWN EDITOR PAGE -->
+  <div class="page-section">
+    <div class="page-title">4. MARKDOWN EDITOR (/course/:id) - Split View with Floating TOC</div>
+    
+    <!-- Top Bar -->
+    <div style="position: relative;">
+      <span class="badge badge-reuse" title="Enhanced header from markdown.jsx">REUSE Header</span>
+      <div class="component">
+        <div class="flex flex-between">
+          <div class="flex">
+            <span class="button" style="padding: 8px; background: #f0f0f0; color: #333;">← Back</span>
+            <div class="icon-box" style="width: 32px; height: 32px; margin: 0;">📄</div>
+            <div>
+              <strong style="display: block; font-size: 14px;">React Hooks</strong>
+              <span style="font-size: 10px; color: #666; text-transform: uppercase;">Viewer</span>
+            </div>
+          </div>
+          
+          <!-- Tab Switcher -->
+          <div style="position: relative;">
+            <span class="badge badge-reuse" style="font-size: 8px; padding: 2px 4px;">REUSE Tabs</span>
+            <div class="flex" style="background: #f0f0f0; padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
+              <span style="padding: 6px 12px; background: white; border-radius: 2px; font-size: 11px; font-weight: bold;">✏️ Edit</span>
+              <span style="padding: 6px 12px; font-size: 11px; color: #666;">⚙️ Split</span>
+              <span style="padding: 6px 12px; font-size: 11px; color: #666;">👁️ Preview</span>
+            </div>
+          </div>
+
+          <!-- REUSABLE: Button -->
+          <span style="position: relative;">
+            <span class="badge badge-reuse" style="font-size: 8px; padding: 2px 4px;">REUSE Button</span>
+            <span class="button">📥 Export</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Split Editor View -->
+    <div style="display: flex; gap: 15px; margin-top: 15px; min-height: 400px;">
+      <!-- Editor Pane -->
+      <div style="position: relative; flex: 1;">
+        <span class="badge badge-reuse" title="Reuse from markdown.jsx">REUSE Editor</span>
+        <div class="card" style="height: 100%; min-height: 400px;">
+          <div style="font-family: 'Courier New', monospace; font-size: 12px; color: #333; line-height: 1.6;">
+            # Introduction to React Hooks<br/>
+            <br/>
+            ## What are Hooks?<br/>
+            <br/>
+            Hooks are functions that let you...<br/>
+            <br/>
+            ```javascript<br/>
+            const [count, setCount] = useState(0);<br/>
+            ```
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Pane -->
+      <div style="position: relative; flex: 1;">
+        <span class="badge badge-reuse" title="Reuse from markdown.jsx">REUSE Preview</span>
+        <div class="card" style="height: 100%; min-height: 400px;">
+          <h2 style="font-size: 20px; margin-bottom: 10px;">Introduction to React Hooks</h2>
+          <h3 style="font-size: 16px; margin: 15px 0 8px;">What are Hooks?</h3>
+          <p style="font-size: 13px; color: #666; line-height: 1.6;">
+            Hooks are functions that let you...
+          </p>
+          <div class="box" style="margin-top: 10px; text-align: left; font-family: 'Courier New', monospace; font-size: 11px;">
+            const [count, setCount] = useState(0);
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating TOC -->
+      <div style="position: relative; width: 200px;">
+        <span class="badge badge-new" title="Floating TOC panel">NEW FloatingTOC</span>
+        <div class="floating-panel" style="padding: 15px; position: sticky; top: 20px;">
+          <strong style="display: block; font-size: 11px; text-transform: uppercase; margin-bottom: 10px;">📋 Contents</strong>
+          <div style="font-size: 12px;">
+            <div style="font-weight: bold; margin-bottom: 5px;">Introduction</div>
+            <div style="color: #666; padding-left: 10px; margin-bottom: 3px;">What are Hooks?</div>
+            <div style="color: #666; padding-left: 10px; margin-bottom: 3px;">Why Hooks?</div>
+            <div style="font-weight: bold; margin: 10px 0 5px;">Basic Hooks</div>
+            <div style="color: #666; padding-left: 10px; margin-bottom: 3px;">useState</div>
+            <div style="color: #666; padding-left: 10px; margin-bottom: 3px;">useEffect</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>UX Improvements:</strong> Persistent floating TOC for better navigation, improved tab switcher design, maintained split view, better visual hierarchy
+    </div>
+  </div>
+
+  <!-- DESIGN SYSTEM COMPONENTS -->
+  <div class="page-section">
+    <div class="page-title">5. NEW COMPONENTS TO CREATE</div>
+    
+    <div class="grid grid-2">
+      <div style="position: relative;">
+        <span class="badge badge-new">NEW IconSidebar</span>
+        <div class="component">
+          <strong>IconSidebar</strong>
+          <p style="font-size: 11px; color: #666; margin-top: 5px;">
+            Collapsible icon-only sidebar with hover tooltips. Path: src/components/IconSidebar.jsx
+          </p>
+        </div>
+      </div>
+
+      <div style="position: relative;">
+        <span class="badge badge-new">NEW StatsBar</span>
+        <div class="component">
+          <strong>StatsBar</strong>
+          <p style="font-size: 11px; color: #666; margin-top: 5px;">
+            Bento-style statistics display grid. Path: src/components/StatsBar.jsx
+          </p>
+        </div>
+      </div>
+
+      <div style="position: relative;">
+        <span class="badge badge-new">NEW WizardFlow</span>
+        <div class="component">
+          <strong>WizardFlow</strong>
+          <p style="font-size: 11px; color: #666; margin-top: 5px;">
+            Multi-step wizard with progress indicator. Path: src/components/WizardFlow.jsx
+          </p>
+        </div>
+      </div>
+
+      <div style="position: relative;">
+        <span class="badge badge-new">NEW FloatingTOC</span>
+        <div class="component">
+          <strong>FloatingTOC</strong>
+          <p style="font-size: 11px; color: #666; margin-top: 5px;">
+            Sticky table of contents with glassmorphic styling. Path: src/components/FloatingTOC.jsx
+          </p>
+        </div>
+      </div>
+
+      <div style="position: relative;">
+        <span class="badge badge-new">NEW GlassHero</span>
+        <div class="component">
+          <strong>GlassHero</strong>
+          <p style="font-size: 11px; color: #666; margin-top: 5px;">
+            Glassmorphic hero section with backdrop blur. Path: src/components/GlassHero.jsx
+          </p>
+        </div>
+      </div>
+
+      <div style="position: relative;">
+        <span class="badge badge-new">NEW CourseCard</span>
+        <div class="component">
+          <strong>CourseCard</strong>
+          <p style="font-size: 11px; color: #666; margin-top: 5px;">
+            Enhanced course card with hover animations. Path: src/components/CourseCard.jsx
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-section" style="background: #f9f9f9;">
+    <h2 style="font-size: 16px; margin-bottom: 15px;">🎯 Key Premium Design Principles Applied:</h2>
+    <ul style="font-family: Arial, sans-serif; font-size: 13px; line-height: 1.8; color: #333;">
+      <li><strong>Icon-Only Sidebar:</strong> Maximizes content space while maintaining navigation accessibility</li>
+      <li><strong>Bento Grid Layouts:</strong> Variable-sized rectangles for better visual organization</li>
+      <li><strong>Glassmorphic Elements:</strong> Floating panels with backdrop blur for modern premium feel</li>
+      <li><strong>Micro-Typography:</strong> Uppercase tracked labels for metadata distinction</li>
+      <li><strong>Progressive Disclosure:</strong> Multi-step wizard prevents overwhelming users</li>
+      <li><strong>Consistent Component Reuse:</strong> Leverages shadcn Button throughout for consistency</li>
+      <li><strong>Improved Information Hierarchy:</strong> Stats, cards, and content properly organized</li>
+      <li><strong>Better Empty States:</strong> Visual prompts for creating new content</li>
+    </ul>
+  </div>
+</body>
+</html>
