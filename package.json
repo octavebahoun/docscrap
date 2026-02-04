@@ -22,7 +22,8 @@
     "test": "nodemon src/scraper/fetchPage.js ",
     "fetch": "nodemon src/scraper/fetchPage.js",
     "extract": "nodemon src/parser/extractContent.js",
-    "start": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "markdown": "nodemon src/services/markdown.service.mjs"
   },
   "dependencies": {

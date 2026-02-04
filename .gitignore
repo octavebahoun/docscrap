@@ -48,7 +48,6 @@ src/build/
 # ========================
 # Données brutes & Logs
 # ========================
-data/raw/
 *.log
 logs/
 *.pid
