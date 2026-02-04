@@ -51,7 +51,9 @@ export default function Dashboard() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 text-indigo-500">
             <Loader2 size={48} className="animate-spin mb-4" />
-            <p className="text-slate-400 font-medium">Chargement de vos cours...</p>
+            <p className="text-slate-400 font-medium">
+              Chargement de vos cours...
+            </p>
           </div>
         ) : courses.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300">
