@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../lib/api";
 import { Link } from "react-router-dom";
 import {
   Book,
@@ -8,6 +8,7 @@ import {
   FileJson,
   FileText,
   Plus,
+  Loader2,
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -17,7 +18,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/courses");
+        const res = await api.get("/api/courses");
         setCourses(res.data);
       } catch (err) {
         console.error("Failed to load courses", err);
@@ -48,7 +49,10 @@ export default function Dashboard() {
         </div>
 
         {loading ? (
-          <div className="text-center py-20 text-slate-400">Chargement...</div>
+          <div className="flex flex-col items-center justify-center py-20 text-indigo-500">
+            <Loader2 size={48} className="animate-spin mb-4" />
+            <p className="text-slate-400 font-medium">Chargement de vos cours...</p>
+          </div>
         ) : courses.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300">
             <p className="text-slate-500 mb-4">Aucun cours trouvé</p>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../lib/api";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Loader2, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -21,7 +21,7 @@ export default function CourseGenerator() {
       // Pour l'instant, on va vers un cours "générique" ou on suppose que le backend a mis à jour "output/course.md"
       // Le backend post /url ne renvoie pas l'ID, mais on sait que ça génère.
 
-      await axios.post("http://localhost:3000/api/courses/url", { url });
+      await api.post("/api/courses/url", { url });
 
       // Redirection vers le dashboard après génération
       // Idéalement on redirigerait vers /course/nouvel-id
