@@ -1,20 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../lib/api";
-import { ArrowLeft, Sparkles, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
-
-// Fallback composant UI si "ui/button" ou "GlassHero" n'existent pas ou sont mal exportés
-const Button = ({ children, className, ...props }) => (
-  <button className={`px-4 py-2 rounded-lg transition-all ${className}`} {...props}>
-    {children}
-  </button>
-);
-
-const GlassHero = ({ children }) => (
-  <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-white/20 w-full">
-    {children}
-  </div>
-);
+import {
+  ArrowLeft,
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
+  Loader2,
+} from "lucide-react";
+import { Button } from "./ui/button";
+import GlassHero from "./GlassHero";
 
 const steps = [
   { id: 1, name: "URL" },
