@@ -1,9 +1,20 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../lib/api";
 import { ArrowLeft, Sparkles, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
-import { Button } from "./ui/button";
-import GlassHero from "./GlassHero";
+
+// Fallback composant UI si "ui/button" ou "GlassHero" n'existent pas ou sont mal exportés
+const Button = ({ children, className, ...props }) => (
+  <button className={`px-4 py-2 rounded-lg transition-all ${className}`} {...props}>
+    {children}
+  </button>
+);
+
+const GlassHero = ({ children }) => (
+  <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-white/20 w-full">
+    {children}
+  </div>
+);
 
 const steps = [
   { id: 1, name: "URL" },
@@ -52,10 +63,17 @@ export default function CourseGenerator() {
       {loading && (
         <div className="fixed inset-0 z-50 bg-white/80 backdrop-blur-sm flex items-center justify-center">
           <div className="flex flex-col items-center gap-4 text-center">
-            <Loader2 className="h-12 w-12 animate-spin text-primary" style={{ color: "var(--color-primary)" }} />
+            <Loader2
+              className="h-12 w-12 animate-spin text-primary"
+              style={{ color: "var(--color-primary)" }}
+            />
             <div>
-              <h3 className="text-xl font-bold text-slate-900">Génération en cours...</h3>
-              <p className="text-slate-500 mt-2">L'IA analyse le contenu et structure votre cours.</p>
+              <h3 className="text-xl font-bold text-slate-900">
+                Génération en cours...
+              </h3>
+              <p className="text-slate-500 mt-2">
+                L'IA analyse le contenu et structure votre cours.
+              </p>
             </div>
           </div>
         </div>
@@ -63,7 +81,11 @@ export default function CourseGenerator() {
 
       {/* Back Button */}
       <div className="absolute top-6 left-6">
-        <Link to="/" className="flex items-center gap-2 group" aria-label="Return to home">
+        <Link
+          to="/"
+          className="flex items-center gap-2 group"
+          aria-label="Return to home"
+        >
           <ArrowLeft
             className="w-5 h-5 transition-transform group-hover:-translate-x-1"
             style={{ color: "var(--color-text-secondary)" }}
@@ -86,9 +108,7 @@ export default function CourseGenerator() {
               <div className="flex flex-col items-center flex-1">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
-                    currentStep >= step.id
-                      ? "scale-110"
-                      : ""
+                    currentStep >= step.id ? "scale-110" : ""
                   }`}
                   style={{
                     background:
@@ -100,9 +120,7 @@ export default function CourseGenerator() {
                         ? "var(--color-text-inverse)"
                         : "var(--color-text-muted)",
                     boxShadow:
-                      currentStep === step.id
-                        ? "var(--shadow-md)"
-                        : "none",
+                      currentStep === step.id ? "var(--shadow-md)" : "none",
                   }}
                 >
                   {currentStep > step.id ? (
@@ -148,7 +166,10 @@ export default function CourseGenerator() {
                 className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 style={{ background: "var(--color-accent)" }}
               >
-                <Sparkles className="w-8 h-8" style={{ color: "var(--color-primary)" }} />
+                <Sparkles
+                  className="w-8 h-8"
+                  style={{ color: "var(--color-primary)" }}
+                />
               </div>
               <h1
                 className="text-2xl font-bold mb-2"
@@ -162,8 +183,10 @@ export default function CourseGenerator() {
                 className="text-sm"
                 style={{ color: "var(--color-text-secondary)" }}
               >
-                {currentStep === 1 && "Collez l'URL de la documentation à convertir"}
-                {currentStep === 2 && "Personnalisez la génération de votre cours"}
+                {currentStep === 1 &&
+                  "Collez l'URL de la documentation à convertir"}
+                {currentStep === 2 &&
+                  "Personnalisez la génération de votre cours"}
                 {currentStep === 3 && "Vérifiez et lancez la génération"}
               </p>
             </div>
@@ -204,7 +227,10 @@ export default function CourseGenerator() {
                     type="checkbox"
                     checked={options.includeExamples}
                     onChange={(e) =>
-                      setOptions({ ...options, includeExamples: e.target.checked })
+                      setOptions({
+                        ...options,
+                        includeExamples: e.target.checked,
+                      })
                     }
                     className="w-5 h-5 rounded border-2 accent-[var(--color-primary)]"
                     style={{ borderColor: "var(--color-border)" }}
@@ -303,7 +329,10 @@ export default function CourseGenerator() {
                   style={{ background: "var(--color-accent)" }}
                 >
                   <div className="label-text mb-2">Options sélectionnées</div>
-                  <ul className="space-y-1 text-sm" style={{ color: "var(--color-text-primary)" }}>
+                  <ul
+                    className="space-y-1 text-sm"
+                    style={{ color: "var(--color-text-primary)" }}
+                  >
                     {options.includeExamples && <li>✓ Exemples de code</li>}
                     {options.autoSummary && <li>✓ Résumé automatique</li>}
                     {options.createToc && <li>✓ Table des matières</li>}
