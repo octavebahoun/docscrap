@@ -83,4 +83,69 @@ router.post('/url', async (req, res) => {
     }
 });
 
+/**
+ * GET /api/courses
+ * Liste les cours disponibles dans data/processed
+ */
+router.get('/', (req, res) => {
+    const processedDir = path.join(process.cwd(), 'data', 'processed');
+
+    if (!fs.existsSync(processedDir)) {
+        return res.json([]);
+    }
+
+    const files = fs.readdirSync(processedDir)
+        .filter(file => file.endsWith('.json') || file.endsWith('.md'))
+        .map(file => {
+            const filePath = path.join(processedDir, file);
+            const stats = fs.statSync(filePath);
+            let metadata = {
+                title: file.replace('.json', '').replace('.md', '').replace(/-/g, ' ').toUpperCase(),
+                summary: "Pas de résumé disponible."
+            };
+
+            // Si c'est un fichier JSON généré par la nouvelle version, on lit les métadonnées
+            if (file.endsWith('.json')) {
+                try {
+                    const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+                    if (content.title) metadata.title = content.title;
+                    if (content.summary) metadata.summary = content.summary;
+                } catch (e) {
+                    console.error(`Erreur lecture metadata ${file}`, e);
+                }
+            }
+
+            return {
+                id: file,
+                title: metadata.title,
+                summary: metadata.summary,
+                type: file.endsWith('.json') ? 'json' : 'markdown',
+                updatedAt: stats.mtime
+            };
+        });
+
+    res.json(files);
+});
+
+/**
+ * GET /api/courses/:id
+ * Récupère le contenu d'un cours spécifique
+ */
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    const filePath = path.join(process.cwd(), 'data', 'processed', id);
+
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ error: 'Cours non trouvé' });
+    }
+
+    const content = fs.readFileSync(filePath, 'utf-8');
+
+    if (id.endsWith('.json')) {
+        res.json(JSON.parse(content));
+    } else {
+        res.send(content);
+    }
+});
+
 module.exports = { router };

@@ -1,0 +1,39 @@
+{
+  "id": "remotion.json",
+  "createdAt": "2026-01-29T17:27:30.556Z",
+  "title": "Remotion",
+  "summary": "Créez des vidéos avec Remotion, découvrez les prérequis et les étapes pour démarrer votre projet",
+  "toc": [
+    {
+      "level": 1,
+      "title": "Prerequisites",
+      "anchor": "#prerequisites"
+    },
+    {
+      "level": 1,
+      "title": "Prompting a video with Claude Code",
+      "anchor": "#prompting-a-video-with-claude-code"
+    },
+    {
+      "level": 1,
+      "title": "Scaffolding a new project",
+      "anchor": "#scaffolding-a-new-project"
+    },
+    {
+      "level": 2,
+      "title": "Installation avec npm",
+      "anchor": "#installation-avec-npm"
+    },
+    {
+      "level": 2,
+      "title": "Installation avec bun",
+      "anchor": "#installation-avec-bun"
+    },
+    {
+      "level": 1,
+      "title": "Installation in existing projects",
+      "anchor": "#installation-in-existing-projects"
+    }
+  ],
+  "content": "# Introduction\nRemotion est un outil pour créer des vidéos. Pour utiliser Remotion, vous devez avoir au moins Node 16 ou Bun 1.0.3.\n\n# Prerequisites\nPour utiliser Remotion, vous devez avoir au moins Node 16 ou Bun 1.0.3.\n\n# Prompting a video with Claude Code\nSi vous prévoyez de créer des vidéos avec Claude Code, consultez [Prompting videos with Claude Code](/docs/ai/claude-code).\n\n# Scaffolding a new project\nPour créer un nouveau projet, vous pouvez utiliser les commandes suivantes :\n* npm : `npx create-video@latest`\n* bun : `bun create video`\n* pnpm : `pnpm create video`\n* yarn : `yarn create video`\n\n# Installation in existing projects\nPour installer Remotion dans un projet existant, consultez [Installation in existing projects](/docs/brownfield)."
+}

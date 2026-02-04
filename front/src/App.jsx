@@ -1,13 +1,20 @@
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./components/LandingPage";
+import Dashboard from "./components/Dashboard";
+import CourseGenerator from "./components/CourseGenerator";
 import MarkdownEditor from "./components/markdown";
-import MarkdownLoader from "./components/fetchmarkdown";
+import "./App.css";
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <MarkdownEditor />
-      {/* <MarkdownLoader /> */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/create" element={<CourseGenerator />} />
+        <Route path="/course/:id" element={<MarkdownEditor />} />
+      </Routes>
+    </Router>
   );
 }
 

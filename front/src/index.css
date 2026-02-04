@@ -58,16 +58,16 @@
 .prose h3,
 .prose h4 {
     font-family: var(--font-sans);
-    font-weight: 700;
-    letter-spacing: -0.025em;
+    font-weight: 600;
+    letter-spacing: 0.015em;
 }
 
 .prose code {
     background-color: theme(--color-black);
     color: theme(--color-white);
-    padding: 0.2em 0.4em;
-    border-radius: 0.375rem;
-    font-weight: 500;
+    padding: 0.1em 0.2em;
+    border-radius: 0.275rem;
+    font-weight: 400;
     font-family: var(--font-mono);
 }
 

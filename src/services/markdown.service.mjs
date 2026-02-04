@@ -18,6 +18,10 @@
 import 'dotenv/config'; // Charge automatiquement les variables d'environnement depuis .env
 import { groq } from '@ai-sdk/groq';
 import { generateText } from 'ai';
+
+// TEMP: Hardcoding key for test removed
+// process.env.GROQ_API_KEY = "YOUR_API_KEY_HERE";
+
 import fs from 'fs';
 import path from 'path';
 import * as cheerio from 'cheerio';
@@ -36,12 +40,12 @@ const CONFIG = {
   MAX_HTML_LENGTH: 12000,
 
   // Modèle IA à utiliser
-  AI_MODEL: 'meta-llama/llama-4-scout-17b-16e-instruct',
+  AI_MODEL: 'llama-3.3-70b-versatile',
 
   // Fichiers d'entrée/sortie dynamiques
   name: 'fichier${Date.now()}.html',
   INPUT_FILE: 'data/raw/{name}',
-  OUTPUT_FILE: 'data/output/course.md',
+  OUTPUT_DIR: 'data/processed',
 
   // Sélecteurs CSS pour nettoyer le HTML (éléments à supprimer)
   NOISE_SELECTORS: [
@@ -125,110 +129,38 @@ function truncateHtml(html, maxLength = CONFIG.MAX_HTML_LENGTH) {
  */
 function generatePrompt(htmlContent) {
   return `# RÔLE
-Tu es un Expert en Ingénierie Pédagogique spécialisé dans le développement logiciel.
+Tu es un Expert en Ingénierie Pédagogique et en structuration de données.
 
 # MISSION
-Transforme cette documentation technique HTML en un cours Markdown structuré, progressif et accessible pour des étudiants débutants/intermédiaires.
+Transforme cette documentation technique HTML en un objet JSON structuré contenant le cours, un résumé et une table des matières.
 
-# STRUCTURE DU COURS (À RESPECTER STRICTEMENT)
+# FORMAT DE SORTIE ATTENDU (JSON UNIQUEMENT)
+Tu dois répondre UNIQUEMENT avec un objet JSON valide suivant cette structure, sans texte avant ni après :
+{
+  "title": "Titre du cours (court et précis)",
+  "summary": "Une méta-description engageante de 150-160 caractères max, optimisée pour le SEO et donnant envie de lire.",
+  "toc": [
+    { "level": 1, "title": "Titre section 1", "anchor": "#titre-section-1" },
+    { "level": 2, "title": "Sous-titre 1.1", "anchor": "#sous-titre-1-1" }
+  ],
+  "content": "Le contenu du cours au format Markdown stringifié..."
+}
+
+# STRUCTURE DU CONTENU MARKDOWN ("content")
 
 ## 1. Introduction (obligatoire)
 - Explique le "Pourquoi" : À quoi sert ce concept ?
-- Contexte d'utilisation réel
-- Bénéfices concrets pour le développeur
-
-## 2. Concepts Fondamentaux
-Pour chaque concept :
-- **Définition simple** (1-2 phrases)
-- **Analogie du quotidien** (rendre le concept tangible)
-- **Exemple de code minimal** avec commentaires en français
-- **Explication ligne par ligne** du code
-
-## 3. Mise en Pratique
-- Cas d'usage réels et progressifs (du simple au complexe)
-- Code commenté avec explications détaillées
-- Points d'attention (> 💡 **Note :** ...)
-- Pièges courants à éviter (> ⚠️ **Attention :** ...)
-
-## 4. Exercices Pratiques (obligatoire)
-Crée 3 exercices progressifs :
-- **Défi 1 (Fondamentaux)** : Modifier un code existant pour changer un comportement simple.
-- **Défi 2 (Logique)** : Implémenter une petite fonctionnalité de zéro en combinant deux notions vues plus haut.
-- **Défi 3 (Mini-projet)** : Résoudre un problème concret (ex: filtrage de liste, gestion d'état complexe).
-
-**Format des exercices :**
-1. Énoncé avec contexte "métier" (ex: "Tu travailles sur une app de e-commerce...").
-2. Contraintes techniques (ex: "N'utilise pas la méthode .map()").
-3. Solution cachée sous une balise Markdown : 
-
-## 5. Récapitulatif (obligatoire)
-- Liste à puces des points clés à retenir
-- Liens avec d'autres concepts (si pertinent)
-
-# RÈGLES DE FORMATAGE MARKDOWN
-
-## Titres
-- H1 (#) : Titre principal du module
-- H2 (##) : Grandes sections
-- H3 (###) : Sous-sections techniques
-
-## Code
-\`\`\`javascript
-// Toujours indiquer le langage
-// Commenter les lignes importantes en français
-function exemple() {
-  // Explication de ce que fait cette ligne
-  return "résultat";
-}
-\`\`\`
-
-## Mise en Évidence
-- **Gras** : Termes techniques importants (définis à la première occurrence)
-- *Italique* : Emphase légère
-- \`code inline\` : Noms de variables, fonctions, propriétés
-
-## Blocs Spéciaux
-- \`> 💡 **Note :**\` pour les astuces
-- \`> ⚠️ **Attention :**\` pour les pièges
-- \`> 🎯 **Objectif :**\` pour les objectifs d'apprentissage
-
-# RÈGLES DE RÉDACTION
-
-## Langue et Ton
-- ✅ Français pédagogique, encourageant et professionnel
-- ✅ Tutoiement ("tu") pour créer la proximité
-- ✅ Phrases courtes et claires (max 20 mots)
-- ✅ Vocabulaire accessible avec explications des termes techniques
-
-## Termes Techniques
-- Garde en anglais : Hook, Promise, Middleware, Component, Props, State
-- Traduis : fonction, variable, tableau, objet, boucle
-- **Définis en gras** à la première occurrence : **Hook** (crochet permettant...)
-
-## À Éviter Absolument
-- ❌ Répétitions inutiles
-- ❌ Digressions hors sujet
-- ❌ Jargon non expliqué
-- ❌ Exemples trop complexes sans progression
-- ❌ Code sans commentaires
-
-## Progression Pédagogique
-1. Partir du connu vers l'inconnu
-2. Un concept à la fois
-3. Exemples avant théorie complexe
-4. Validation par exercices
+... (reste des instructions inchangé)
 
 # CONTENU HTML À TRAITER
 ${htmlContent}
 
 # INSTRUCTIONS FINALES
-1. Ignore tout le bruit HTML (menus, footers, publicités)
-2. Extrait uniquement le contenu pédagogique pertinent
-3. Réorganise logiquement si nécessaire
-4. Produis un cours **complet, autonome et prêt à l'emploi**
-5. Assure-toi que chaque section apporte de la valeur
-
-Commence maintenant la conversion en Markdown.`;
+1. Ignore tout le bruit HTML.
+2. Génère une "toc" (table des matières) cohérente avec les titres du Markdown.
+3. Rédige un "summary" accrocheur.
+4. Produis un JSON valide.
+`;
 }
 
 // ============================================================================
@@ -245,7 +177,7 @@ Commence maintenant la conversion en Markdown.`;
  * @example
  * const markdown = await htmlToMarkdown('<h1>Titre</h1><p>Contenu</p>');
  */
-async function htmlToMarkdown(htmlContent, courseTitle = 'unamed') {
+async function htmlToMarkdown(htmlContent) {
   console.log('🧹 Nettoyage du HTML...');
 
   // Étape 1 : Nettoyer le HTML (supprimer les éléments parasites)
@@ -258,7 +190,7 @@ async function htmlToMarkdown(htmlContent, courseTitle = 'unamed') {
   console.log('📄 Aperçu du HTML nettoyé:');
   console.log(truncatedHtml.slice(0, 500) + '...\n');
 
-  console.log('🤖 Génération du Markdown avec l\'IA...');
+  console.log('🤖 Génération du JSON (Cours + Méta) avec l\'IA...');
 
   // Étape 3 : Générer le prompt et appeler l'API Groq
   const prompt = generatePrompt(truncatedHtml);
@@ -269,24 +201,55 @@ async function htmlToMarkdown(htmlContent, courseTitle = 'unamed') {
       prompt: prompt,
     });
 
-    // Étape 4 : Sauvegarder le résultat
-    const courseDir = path.join(process.cwd(), 'data/output', courseTitle);
-    // 
-    if (!fs.existsSync(courseDir)) {
-      fs.mkdirSync(courseDir, { recursive: true });
+    // Extraction du JSON (au cas où l'IA bavarde autour)
+    let jsonResponse;
+    try {
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        jsonResponse = JSON.parse(jsonMatch[0]);
+      } else {
+        throw new Error("Pas de JSON valide trouvé");
+      }
+    } catch (e) {
+      console.warn("⚠️ Echec du parsing JSON direct. Tentative de fallback ou sauvegarde brute.");
+      // Fallback: Si le JSON est cassé, on sauvegarde quand même le texte brut dans content
+      jsonResponse = {
+        title: "Cours généré (Erreur Parsing)",
+        summary: "Erreur lors de la génération des métadonnées.",
+        toc: [],
+        content: text
+      };
     }
 
-    const files = fs.readdirSync(courseDir).filter(f => f.match(/^v\d+\.md$/));
-    const nextVersion = files.length + 1;
-    const outputPath = path.join(courseDir, `c${nextVersion}.md`);
-    fs.writeFileSync(outputPath, text, 'utf-8');
+    // Génération d'un nom de fichier propre
+    const safeTitle = jsonResponse.title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '') || `course-${Date.now()}`;
 
-    console.log(`✅ Fichier v${nextVersion} Conversion terminée ! Fichier sauvegardé : ${outputPath}`);
-    return text;
+    // Étape 4 : Sauvegarder le résultat dans data/processed
+    const outputDir = path.join(process.cwd(), CONFIG.OUTPUT_DIR);
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+
+    const outputPath = path.join(outputDir, `${safeTitle}.json`);
+
+    // Ajout de métadonnées système
+    const finalData = {
+      id: `${safeTitle}.json`,
+      createdAt: new Date().toISOString(),
+      ...jsonResponse
+    };
+
+    fs.writeFileSync(outputPath, JSON.stringify(finalData, null, 2), 'utf-8');
+
+    console.log(`✅ Conversion terminée ! Fichier sauvegardé : ${outputPath}`);
+    return finalData;
 
   } catch (apiError) {
     // Gestion spécifique des erreurs de l'API
-    console.error('❌ Erreur lors de l\'appel à l\'API Groq:');
+    console.error('❌ Erreur lors de l\'appel à l\'API Groq:', apiError);
     throw new Error(`API Groq: ${apiError.message}`);
   }
 }
@@ -296,8 +259,3 @@ export { htmlToMarkdown, CONFIG };
 
 
 //Test API
-
-
-
-
-

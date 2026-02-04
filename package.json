@@ -22,7 +22,7 @@
     "test": "nodemon src/scraper/fetchPage.js ",
     "fetch": "nodemon src/scraper/fetchPage.js",
     "extract": "nodemon src/parser/extractContent.js",
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js",
     "markdown": "nodemon src/services/markdown.service.mjs"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "nodemon": "^3.1.11",
-    "openai": "^6.16.0"
+    "openai": "^6.16.0",
+    "puppeteer": "^24.36.1"
   }
 }
