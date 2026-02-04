@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: docscrap-api
+    runtime: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm install && npx puppeteer browsers install chrome
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
+        value: "true"
+      - key: PUPPETEER_EXECUTABLE_PATH
+        value: /opt/render/.cache/puppeteer/chrome/linux-*/chrome-linux64/chrome
+      - key: GROQ_API_KEY
+        sync: false # À configurer manuellement dans le dashboard Render
+      - key: FRONTEND_URL
+        value: https://docscrap.vercel.app
+      - key: RENDER
+        value: "true"
+    healthCheckPath: /

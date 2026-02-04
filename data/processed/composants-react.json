@@ -1,0 +1,24 @@
+{
+  "id": "composants-react.json",
+  "createdAt": "2026-02-04T23:35:25.275Z",
+  "title": "Composants React",
+  "summary": "Découvrez les bases des composants React et comment les utiliser pour créer des interfaces utilisateur réutilisables",
+  "toc": [
+    {
+      "level": 1,
+      "title": "Introduction",
+      "anchor": "#introduction"
+    },
+    {
+      "level": 1,
+      "title": "Composants : blocs de construction de l'interface utilisateur",
+      "anchor": "#components-ui-building-blocks"
+    },
+    {
+      "level": 1,
+      "title": "Définition d'un composant",
+      "anchor": "#defining-a-component"
+    }
+  ],
+  "content": "## Introduction\nLes composants sont un des concepts fondamentaux de React. Ils sont la base sur laquelle vous construisez les interfaces utilisateur (UI), ce qui les rend parfaitement adaptés pour commencer votre parcours React !\n\n## Composants : blocs de construction de l'interface utilisateur\nSur le Web, HTML nous permet de créer des documents structurés avec ses balises intégrées comme `<h1>` et `<li>` :\n\n```html\n<article>\n  <h1>Titre</h1>\n  <ol>\n    <li>Item 1</li>\n    <li>Item 2</li>\n  </ol>\n</article>\n```\nCe code représente un article, son titre et une table des matières sous forme de liste ordonnée.\n\n## Définition d'un composant\nUn composant React est une fonction JavaScript que vous pouvez agrémenter de balises HTML. Voici à quoi cela ressemble :\n\n```jsx\nfunction MonComposant() {\n  return <div>Ceci est mon composant</div>;\n}\n```\n"
+}

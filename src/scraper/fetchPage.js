@@ -8,13 +8,49 @@ const puppeteer = require('puppeteer')
 const fs = require('fs')
 const path = require('path')
 
+/**
+ * Récupère le chemin de l'exécutable Chrome selon l'environnement
+ * @returns {string|undefined} Chemin de Chrome ou undefined pour utiliser le défaut
+ */
+const getChromePath = () => {
+  // En production sur Render, utiliser le chemin installé par puppeteer
+  if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+    return process.env.PUPPETEER_EXECUTABLE_PATH;
+  }
+
+  // Sur Render sans variable d'env explicite, chercher dans le cache
+  if (process.env.RENDER) {
+    const possiblePaths = [
+      '/opt/render/.cache/puppeteer/chrome/linux-131.0.6778.204/chrome-linux64/chrome',
+      '/opt/render/.cache/puppeteer/chrome/linux-130.0.6723.116/chrome-linux64/chrome',
+    ];
+    for (const p of possiblePaths) {
+      if (fs.existsSync(p)) return p;
+    }
+  }
+
+  // En développement, laisser Puppeteer trouver Chrome automatiquement
+  return undefined;
+};
+
 const fetchPage = async (url) => {
   let browser = null;
   try {
-    // Lancement du navigateur
+    const executablePath = getChromePath();
+    console.log(`🌐 Utilisation de Chrome: ${executablePath || 'auto-détection'}`);
+
+    // Lancement du navigateur avec configuration adaptée à Render
     browser = await puppeteer.launch({
       headless: "new",
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      executablePath,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',  // Important pour Render (mémoire partagée limitée)
+        '--disable-gpu',
+        '--single-process',  // Réduit la consommation mémoire
+        '--no-zygote'
+      ]
     });
 
     const page = await browser.newPage();
