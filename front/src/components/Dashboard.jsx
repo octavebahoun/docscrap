@@ -17,9 +17,15 @@ export default function Dashboard() {
     const fetchCourses = async () => {
       try {
         const res = await api.get("/api/courses");
-        setCourses(res.data);
+        if (Array.isArray(res.data)) {
+          setCourses(res.data);
+        } else {
+          console.error("API did not return an array", res.data);
+          setCourses([]);
+        }
       } catch (err) {
         console.error("Failed to load courses", err);
+        setCourses([]);
       } finally {
         setLoading(false);
       }
@@ -27,9 +33,11 @@ export default function Dashboard() {
     fetchCourses();
   }, []);
 
-  const filteredCourses = courses.filter((course) =>
-    course.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredCourses = Array.isArray(courses)
+    ? courses.filter((course) =>
+        course.title.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+    : [];
 
   return (
     <div
@@ -110,7 +118,10 @@ export default function Dashboard() {
                   <Skeleton className="h-6 w-3/4" />
                   <Skeleton className="h-4 w-full" />
                   <Skeleton className="h-4 w-5/6" />
-                  <div className="pt-4 border-t" style={{ borderColor: "var(--color-border-light)" }}>
+                  <div
+                    className="pt-4 border-t"
+                    style={{ borderColor: "var(--color-border-light)" }}
+                  >
                     <Skeleton className="h-4 w-24" />
                   </div>
                 </div>
@@ -128,13 +139,18 @@ export default function Dashboard() {
                 className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 style={{ background: "var(--color-accent)" }}
               >
-                <Plus className="w-8 h-8" style={{ color: "var(--color-primary)" }} />
+                <Plus
+                  className="w-8 h-8"
+                  style={{ color: "var(--color-primary)" }}
+                />
               </div>
               <p
                 className="text-lg font-medium mb-2"
                 style={{ color: "var(--color-text-primary)" }}
               >
-                {searchQuery ? "Aucun cours trouvé" : "Aucun cours pour le moment"}
+                {searchQuery
+                  ? "Aucun cours trouvé"
+                  : "Aucun cours pour le moment"}
               </p>
               <p
                 className="mb-6 text-sm"

@@ -201,7 +201,7 @@ export default function CourseGenerator() {
                   type="url"
                   required
                   placeholder="https://react.dev/learn/..."
-                  className="w-full px-4 py-3 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+                  className="w-full px-4 py-3 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{
                     borderColor: "var(--color-border)",
                     background: "var(--color-surface)",
@@ -227,7 +227,7 @@ export default function CourseGenerator() {
                         includeExamples: e.target.checked,
                       })
                     }
-                    className="w-5 h-5 rounded border-2 accent-[var(--color-primary)]"
+                    className="w-5 h-5 rounded border-2 accent-primary"
                     style={{ borderColor: "var(--color-border)" }}
                     aria-label="Include code examples"
                   />
@@ -254,7 +254,7 @@ export default function CourseGenerator() {
                     onChange={(e) =>
                       setOptions({ ...options, autoSummary: e.target.checked })
                     }
-                    className="w-5 h-5 rounded border-2 accent-[var(--color-primary)]"
+                    className="w-5 h-5 rounded border-2 accent-primary"
                     style={{ borderColor: "var(--color-border)" }}
                     aria-label="Auto-generate summary"
                   />
@@ -281,7 +281,7 @@ export default function CourseGenerator() {
                     onChange={(e) =>
                       setOptions({ ...options, createToc: e.target.checked })
                     }
-                    className="w-5 h-5 rounded border-2 accent-[var(--color-primary)]"
+                    className="w-5 h-5 rounded border-2 accent-primary"
                     style={{ borderColor: "var(--color-border)" }}
                     aria-label="Create table of contents"
                   />

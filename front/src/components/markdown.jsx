@@ -84,10 +84,13 @@ const MarkdownEditor = () => {
         <div className="flex items-center gap-3">
           <Link
             to="/dashboard"
-            className="p-2 -ml-2 hover:bg-[var(--color-accent)] rounded-full transition-colors"
+            className="p-2 -ml-2 hover:bg-accent rounded-full transition-colors"
             aria-label="Return to dashboard"
           >
-            <ChevronLeft className="w-5 h-5" style={{ color: "var(--color-text-secondary)" }} />
+            <ChevronLeft
+              className="w-5 h-5"
+              style={{ color: "var(--color-text-secondary)" }}
+            />
           </Link>
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -96,14 +99,19 @@ const MarkdownEditor = () => {
               boxShadow: "var(--shadow-md)",
             }}
           >
-            <FileText className="w-6 h-6" style={{ color: "var(--color-text-inverse)" }} />
+            <FileText
+              className="w-6 h-6"
+              style={{ color: "var(--color-text-inverse)" }}
+            />
           </div>
           <div>
             <h1
               className="text-lg font-bold leading-tight"
               style={{ color: "var(--color-text-primary)" }}
             >
-              {id ? id.replace(".md", "").replace(".json", "") : "DocScrap Editor"}
+              {id
+                ? id.replace(".md", "").replace(".json", "")
+                : "DocScrap Editor"}
             </h1>
             <p className="label-text">Viewer</p>
           </div>
@@ -130,7 +138,9 @@ const MarkdownEditor = () => {
                 className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-semibold transition-all duration-200"
                 style={{
                   background: isActive ? "var(--color-surface)" : "transparent",
-                  color: isActive ? "var(--color-primary)" : "var(--color-text-muted)",
+                  color: isActive
+                    ? "var(--color-primary)"
+                    : "var(--color-text-muted)",
                   boxShadow: isActive ? "var(--shadow-xs)" : "none",
                 }}
                 role="tab"
@@ -174,7 +184,7 @@ const MarkdownEditor = () => {
                     <a
                       key={index}
                       href={item.anchor}
-                      className={`block text-sm py-1.5 transition-colors hover:text-[var(--color-primary)] ${
+                      className={`block text-sm py-1.5 transition-colors hover:text-primary ${
                         item.level === 1 ? "font-semibold" : "pl-4"
                       }`}
                       style={{
@@ -268,8 +278,16 @@ const MarkdownEditor = () => {
                     >
                       <ReactMarkdown
                         components={{
-                          code({ node, inline, className, children, ...props }) {
-                            const match = /language-(\w+)/.exec(className || "");
+                          code({
+                            node,
+                            inline,
+                            className,
+                            children,
+                            ...props
+                          }) {
+                            const match = /language-(\w+)/.exec(
+                              className || "",
+                            );
                             return !inline && match ? (
                               <SyntaxHighlighter
                                 {...props}
@@ -313,7 +331,7 @@ const MarkdownEditor = () => {
                     <a
                       key={index}
                       href={item.anchor}
-                      className={`block text-sm py-1.5 transition-colors hover:text-[var(--color-primary)] ${
+                      className={`block text-sm py-1.5 transition-colors hover:text-primary ${
                         item.level === 1 ? "font-semibold" : "pl-4"
                       }`}
                       style={{

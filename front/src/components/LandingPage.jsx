@@ -55,17 +55,20 @@ export default function LandingPage() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+        <nav
+          className="hidden md:flex items-center gap-6"
+          aria-label="Main navigation"
+        >
           <a
             href="#features"
-            className="text-sm font-medium transition-colors hover:text-[var(--color-primary)]"
+            className="text-sm font-medium transition-colors hover:text-primary"
             style={{ color: "var(--color-text-secondary)" }}
           >
             Fonctionnalités
           </a>
           <a
             href="#pricing"
-            className="text-sm font-medium transition-colors hover:text-[var(--color-primary)]"
+            className="text-sm font-medium transition-colors hover:text-primary"
             style={{ color: "var(--color-text-secondary)" }}
           >
             Tarifs
@@ -191,7 +194,10 @@ export default function LandingPage() {
             className="flex items-center justify-center gap-2 text-sm"
             style={{ color: "var(--color-text-muted)" }}
           >
-            <Sparkles className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+            <Sparkles
+              className="w-4 h-4"
+              style={{ color: "var(--color-primary)" }}
+            />
             <span>Propulsé par l'IA | Gratuit et Open Source</span>
           </motion.div>
         </div>

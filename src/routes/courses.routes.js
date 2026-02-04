@@ -90,11 +90,19 @@ router.post('/url', async (req, res) => {
 router.get('/', (req, res) => {
     const processedDir = path.join(process.cwd(), 'data', 'processed');
 
+    console.log('📂 CWD:', process.cwd());
+    console.log('📂 Looking for courses in:', processedDir);
+    console.log('📂 Directory exists:', fs.existsSync(processedDir));
+
     if (!fs.existsSync(processedDir)) {
+        console.log('⚠️ Directory does not exist, returning empty array');
         return res.json([]);
     }
 
-    const files = fs.readdirSync(processedDir)
+    const allFiles = fs.readdirSync(processedDir);
+    console.log('📂 All files in directory:', allFiles);
+
+    const files = allFiles
         .filter(file => file.endsWith('.json') || file.endsWith('.md'))
         .map(file => {
             const filePath = path.join(processedDir, file);
