@@ -14,8 +14,10 @@ const app = express();
 
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], // Vite dev server
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  // "origin: true" permet d'accepter toutes les origines tout en supportant les credentials
+  // C'est utile si on ne connait pas l'URL Vercel à l'avance ou pour éviter les erreurs CORS 'strict'
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
 
