@@ -156,4 +156,60 @@ router.get('/:id', (req, res) => {
     }
 });
 
+/**
+ * DELETE /api/courses
+ * Supprime tous les cours
+ */
+router.delete('/', (req, res) => {
+    try {
+        const processedDir = path.join(process.cwd(), 'data', 'processed');
+
+        if (!fs.existsSync(processedDir)) {
+            return res.json({ message: 'Aucun cours à supprimer', deleted: 0 });
+        }
+
+        const files = fs.readdirSync(processedDir)
+            .filter(file => file.endsWith('.json') || file.endsWith('.md'));
+
+        let deletedCount = 0;
+        for (const file of files) {
+            const filePath = path.join(processedDir, file);
+            fs.unlinkSync(filePath);
+            deletedCount++;
+            console.log(`🗑️ Supprimé: ${file}`);
+        }
+
+        res.json({
+            message: `${deletedCount} cours supprimé(s) avec succès`,
+            deleted: deletedCount
+        });
+    } catch (error) {
+        console.error('❌ Erreur lors de la suppression:', error);
+        res.status(500).json({ error: 'Erreur lors de la suppression', message: error.message });
+    }
+});
+
+/**
+ * DELETE /api/courses/:id
+ * Supprime un cours spécifique
+ */
+router.delete('/:id', (req, res) => {
+    try {
+        const { id } = req.params;
+        const filePath = path.join(process.cwd(), 'data', 'processed', id);
+
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({ error: 'Cours non trouvé' });
+        }
+
+        fs.unlinkSync(filePath);
+        console.log(`🗑️ Supprimé: ${id}`);
+
+        res.json({ message: `Cours "${id}" supprimé avec succès` });
+    } catch (error) {
+        console.error('❌ Erreur lors de la suppression:', error);
+        res.status(500).json({ error: 'Erreur lors de la suppression', message: error.message });
+    }
+});
+
 module.exports = { router };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../lib/api";
-import { Plus, Search } from "lucide-react";
+import { Plus, Search, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 import IconSidebar from "./IconSidebar";
@@ -11,27 +11,51 @@ import CourseCard from "./CourseCard";
 export default function Dashboard() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const res = await api.get("/api/courses");
-        if (Array.isArray(res.data)) {
-          setCourses(res.data);
-        } else {
-          console.error("API did not return an array", res.data);
-          setCourses([]);
-        }
-      } catch (err) {
-        console.error("Failed to load courses", err);
+  const fetchCourses = async () => {
+    try {
+      const res = await api.get("/api/courses");
+      if (Array.isArray(res.data)) {
+        setCourses(res.data);
+      } else {
+        console.error("API did not return an array", res.data);
         setCourses([]);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (err) {
+      console.error("Failed to load courses", err);
+      setCourses([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchCourses();
   }, []);
+
+  const handleDeleteAll = async () => {
+    if (
+      !window.confirm(
+        `Êtes-vous sûr de vouloir supprimer tous les ${courses.length} cours ? Cette action est irréversible.`,
+      )
+    ) {
+      return;
+    }
+
+    setDeleting(true);
+    try {
+      const res = await api.delete("/api/courses");
+      console.log(res.data.message);
+      setCourses([]);
+    } catch (err) {
+      console.error("Failed to delete courses", err);
+      alert("Erreur lors de la suppression des cours");
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   const filteredCourses = Array.isArray(courses)
     ? courses.filter((course) =>
@@ -67,19 +91,38 @@ export default function Dashboard() {
               </p>
             </div>
 
-            <Link to="/create" aria-label="Create a new course">
-              <Button
-                className="font-bold rounded-xl transition-all hover:scale-105 active:scale-95"
-                style={{
-                  background: "var(--color-primary)",
-                  color: "var(--color-text-inverse)",
-                  boxShadow: "var(--shadow-md)",
-                }}
-              >
-                <Plus className="w-5 h-5" />
-                Nouveau Cours
-              </Button>
-            </Link>
+            <div className="flex gap-3">
+              {courses.length > 0 && (
+                <Button
+                  onClick={handleDeleteAll}
+                  disabled={deleting}
+                  className="font-bold rounded-xl transition-all hover:scale-105 active:scale-95"
+                  style={{
+                    background: "var(--color-error, #dc2626)",
+                    color: "white",
+                    opacity: deleting ? 0.7 : 1,
+                  }}
+                  aria-label="Delete all courses"
+                >
+                  <Trash2 className="w-5 h-5" />
+                  {deleting ? "Suppression..." : "Tout supprimer"}
+                </Button>
+              )}
+
+              <Link to="/create" aria-label="Create a new course">
+                <Button
+                  className="font-bold rounded-xl transition-all hover:scale-105 active:scale-95"
+                  style={{
+                    background: "var(--color-primary)",
+                    color: "var(--color-text-inverse)",
+                    boxShadow: "var(--shadow-md)",
+                  }}
+                >
+                  <Plus className="w-5 h-5" />
+                  Nouveau Cours
+                </Button>
+              </Link>
+            </div>
           </div>
 
           {/* Stats Bar */}
