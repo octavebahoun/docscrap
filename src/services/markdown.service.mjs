@@ -40,7 +40,7 @@ const CONFIG = {
   MAX_HTML_LENGTH: 12000,
 
   // Modèle IA à utiliser
-  AI_MODEL: 'llama-3.3-70b-versatile',
+  AI_MODEL: 'qwen/qwen3-32b',
 
   // Fichiers d'entrée/sortie dynamiques
   name: 'fichier${Date.now()}.html',
